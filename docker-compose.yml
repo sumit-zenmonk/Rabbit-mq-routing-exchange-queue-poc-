@@ -1,0 +1,48 @@
+name: "rabbit-mq-compose-file"
+
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5  
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
+
+  microservice-1-backend:
+    build:
+      context: ./microservice-1
+      dockerfile: dockerfile
+    ports:
+      - "3001:3001"
+    depends_on:
+      rabbitmq:
+        condition: service_healthy 
+    command: sh -c "npm run build && npm run start:dev"
+    env_file: ./microservice-1/.env
+    volumes:
+      - ./microservice-1:/app
+      - /app/node_modules 
+
+  microservice-2-backend:
+    build:
+      context: ./microservice-2
+      dockerfile: dockerfile
+    ports:
+      - "3002:3002"
+    depends_on:
+      rabbitmq:
+        condition: service_healthy 
+    command: sh -c "npm run build && npm run start:dev"
+    env_file: ./microservice-2/.env
+    volumes:
+      - ./microservice-2:/app
+      - /app/node_modules 
