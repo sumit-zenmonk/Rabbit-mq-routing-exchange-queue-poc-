@@ -1,0 +1,5 @@
+RabbitMQ Service implementation -> https://sivabharathy.in/blog/rabbitmq-implementation-in-nestjs/
+
+Docker implementation -> https://dev.to/rafi021/set-up-rabbitmq-with-mqtt-and-management-ui-using-docker-m7o
+
+Depth Understanding Youtube -> https://www.youtube.com/watch?v=FGU3oFIeG0Q&t=157s
