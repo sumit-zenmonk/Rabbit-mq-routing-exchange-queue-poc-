@@ -10,12 +10,17 @@ Depth Understanding Youtube -> https://www.youtube.com/watch?v=FGU3oFIeG0Q&t=157
 Down command is of how to check where durable and persistent queue,mesasge store when queue crashes
 
 mr-birwal@mr-birwal:~/Downloads/Rabbit-mq-routing-exchange-queue-poc-$ docker compose exec rabbitmq sh
+
 # rabbitmq-diagnostics status | grep "Node data directory"
 Node data directory: /var/lib/rabbitmq/mnesia/rabbit@315d33238808
+
 # cd /var/lib/rabbitmq/mnesia/rabbit@315d33238808
+
 # ls
+
 DECISION_TAB.LOG      msg_stores                 rabbit_durable_exchange.DCD  rabbit_durable_route.DCD       rabbit_topic_permission.DCD  rabbit_user_permission.DCL
 LATEST.LOG            node-type.txt              rabbit_durable_exchange.DCL  rabbit_runtime_parameters.DCD  rabbit_user.DCD              rabbit_vhost.DCD
 cluster_nodes.config  nodes_running_at_shutdown  rabbit_durable_queue.DCD     rabbit_runtime_parameters.DCL  rabbit_user.DCL              rabbit_vhost.DCL
 coordination          quorum                     rabbit_durable_queue.DCL     rabbit_serial                  rabbit_user_permission.DCD   schema.DAT
+
 # 
