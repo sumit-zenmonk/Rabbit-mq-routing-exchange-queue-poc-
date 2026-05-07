@@ -21,19 +21,17 @@ export class Micro1RabbitMQService implements OnModuleInit, OnModuleDestroy {
         await this.connectToRabbitMQ();
 
         // make some simple testing queues
-        {
-            await this.setupExchangeQueueAndBind(this.micro_one_direct, 'direct_exchange', 'micro1', ExchangeTypeEnum.DIRECT);
-            await this.consumeMessages(this.micro_one_direct);
+        await this.setupExchangeQueueAndBind(this.micro_one_direct, 'direct_exchange', 'micro1', ExchangeTypeEnum.DIRECT);
+        await this.consumeMessages(this.micro_one_direct);
 
-            await this.setupExchangeQueueAndBind(this.micro_one_topic, 'topic_exchange', 'micro.*', ExchangeTypeEnum.TOPIC);
-            await this.consumeMessages(this.micro_one_topic);
+        await this.setupExchangeQueueAndBind(this.micro_one_topic, 'topic_exchange', 'micro.*', ExchangeTypeEnum.TOPIC);
+        await this.consumeMessages(this.micro_one_topic);
 
-            await this.setupExchangeQueueAndBind(this.micro_one_fanout, 'fanout_exchange', '', ExchangeTypeEnum.FANOUT);
-            await this.consumeMessages(this.micro_one_fanout);
+        await this.setupExchangeQueueAndBind(this.micro_one_fanout, 'fanout_exchange', '', ExchangeTypeEnum.FANOUT);
+        await this.consumeMessages(this.micro_one_fanout);
 
-            await this.setupExchangeQueueAndBind(this.micro_one_header, 'headers_exchange', '', ExchangeTypeEnum.HEADERS, { "x-match": XMatchHeaderEnum.ALL, "topic": "format", "type": "pdf" });
-            await this.consumeMessages(this.micro_one_header);
-        }
+        await this.setupExchangeQueueAndBind(this.micro_one_header, 'headers_exchange', '', ExchangeTypeEnum.HEADERS, { "x-match": XMatchHeaderEnum.ALL, "topic": "format", "type": "pdf" });
+        await this.consumeMessages(this.micro_one_header);
     }
 
     async onModuleDestroy() {
