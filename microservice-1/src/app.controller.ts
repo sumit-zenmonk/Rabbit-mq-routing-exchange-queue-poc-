@@ -19,14 +19,14 @@ export class AppController {
   // direct exchange api
   @Post("direct")
   async send(@Body() body: any) {
-    await this.micro1RabbitMQService.publishToExchange('direct_exchange', body.key || 'micro1', body, ExchangeTypeEnum.DIRECT);
+    await this.micro1RabbitMQService.publishToExchange('direct_exchange', body.key || 'micro1', body);
     return { status: "Message sent (direct)" };
   }
 
   // fanout exchange api
   @Post("broadcast")
   async broadcast(@Body() body: any) {
-    await this.micro1RabbitMQService.publishToExchange('fanout_exchange', '', body, ExchangeTypeEnum.FANOUT);
+    await this.micro1RabbitMQService.publishToExchange('fanout_exchange', '', body);
     return { status: "Broadcast sent" };
   }
 
@@ -37,7 +37,7 @@ export class AppController {
       throw new BadRequestException("key required")
     }
 
-    await this.micro1RabbitMQService.publishToExchange('topic_exchange', body.key, body, ExchangeTypeEnum.TOPIC);
+    await this.micro1RabbitMQService.publishToExchange('topic_exchange', body.key, body);
     return { status: "Topic message sent" };
   }
 
@@ -45,7 +45,7 @@ export class AppController {
   @Post("headers")
   async headers(@Req() req: Request, @Body() body: any) {
     const headers = { type: req.headers.type, topic: req.headers.topic };
-    await this.micro1RabbitMQService.publishToExchange('headers_exchange', '', body, ExchangeTypeEnum.HEADERS, { "x-match": XMatchHeaderEnum.ALL, ...headers });
+    await this.micro1RabbitMQService.publishToExchange('headers_exchange', '', body, { "x-match": XMatchHeaderEnum.ALL, ...headers });
     return { status: "headers message sent" };
   }
 }

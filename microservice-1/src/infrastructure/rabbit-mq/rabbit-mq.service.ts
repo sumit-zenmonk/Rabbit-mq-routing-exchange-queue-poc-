@@ -120,12 +120,12 @@ export class Micro1RabbitMQService implements OnModuleInit, OnModuleDestroy {
         exchange: string,
         routingKey: string,
         message: any,
-        type: ExchangeType = ExchangeTypeEnum.DIRECT,
+        // type: ExchangeType = ExchangeTypeEnum.DIRECT,
         headers: PublishHeadersInterface = { 'x-match': XMatchHeaderEnum.ALL }
     ) {
         try {
             // ensure exchange exists
-            await this.channel.assertExchange(exchange, type, { durable: true, });
+            // await this.channel.assertExchange(exchange, type, { durable: true, });
 
             // amqp is binary protocol on tcp so send in binary format
             const buffer = Buffer.from(JSON.stringify(message));
