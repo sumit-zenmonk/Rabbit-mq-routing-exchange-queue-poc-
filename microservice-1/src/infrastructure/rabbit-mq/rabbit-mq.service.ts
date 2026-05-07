@@ -121,7 +121,7 @@ export class Micro1RabbitMQService implements OnModuleInit, OnModuleDestroy {
         routingKey: string,
         message: any,
         // type: ExchangeType = ExchangeTypeEnum.DIRECT,
-        headers: PublishHeadersInterface = { 'x-match': XMatchHeaderEnum.ALL }
+        headers?: PublishHeadersInterface
     ) {
         try {
             // ensure exchange exists
