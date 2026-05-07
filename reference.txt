@@ -7,20 +7,56 @@ Depth Understanding Youtube -> https://www.youtube.com/watch?v=FGU3oFIeG0Q&t=157
 
 
 
-Down command is of how to check where durable and persistent queue,mesasge store when queue crashes
 
-mr-birwal@mr-birwal:~/Downloads/Rabbit-mq-routing-exchange-queue-poc-$ docker compose exec rabbitmq sh
 
-# rabbitmq-diagnostics status | grep "Node data directory"
+[ command 1 ]
+[ Down command is of how to check where durable and persistent queue,mesasge store when queue crashes ]
+
+mr-birwal@mr-birwal:~/Downloads/Sumit Code/Rabbit-mq-routing-exchange-queue-poc-$ docker compose exec rabbitmq bash
+
+root@315d33238808:~/mnesia/rabbit@315d33238808#  rabbitmq-diagnostics status | grep "Node data directory"
+
 Node data directory: /var/lib/rabbitmq/mnesia/rabbit@315d33238808
 
-# cd /var/lib/rabbitmq/mnesia/rabbit@315d33238808
+root@315d33238808:~/mnesia/rabbit@315d33238808# cd /var/lib/rabbitmq/mnesia/rabbit@315d33238808
 
-# ls
+root@315d33238808:~/mnesia/rabbit@315d33238808# ls
 
 DECISION_TAB.LOG      msg_stores                 rabbit_durable_exchange.DCD  rabbit_durable_route.DCD       rabbit_topic_permission.DCD  rabbit_user_permission.DCL
 LATEST.LOG            node-type.txt              rabbit_durable_exchange.DCL  rabbit_runtime_parameters.DCD  rabbit_user.DCD              rabbit_vhost.DCD
 cluster_nodes.config  nodes_running_at_shutdown  rabbit_durable_queue.DCD     rabbit_runtime_parameters.DCL  rabbit_user.DCL              rabbit_vhost.DCL
 coordination          quorum                     rabbit_durable_queue.DCL     rabbit_serial                  rabbit_user_permission.DCD   schema.DAT
 
-# 
+root@315d33238808:~/mnesia/rabbit@315d33238808# 
+
+
+
+
+
+
+[ command 2 ]
+[ Listing of every binding ]
+
+mr-birwal@mr-birwal:~/Downloads/Sumit Code/Rabbit-mq-routing-exchange-queue-poc-$ docker compose exec rabbitmq bash
+
+root@315d33238808:/# rabbitmqctl list_bindings
+
+Listing bindings for vhost /...
+source_name     source_kind     destination_name        destination_kind        routing_key     arguments
+        exchange        micro_one_fanout        queue   micro_one_fanout        []
+        exchange        micro_one_direct        queue   micro_one_direct        []
+        exchange        micro_two_header        queue   micro_two_header        []
+        exchange        micro_one_header        queue   micro_one_header        []
+        exchange        micro_one_topic queue   micro_one_topic []
+        exchange        micro_two_fanout        queue   micro_two_fanout        []
+        exchange        micro_two_topic queue   micro_two_topic []
+        exchange        micro_two_direct        queue   micro_two_direct        []
+direct_exchange exchange        micro_one_direct        queue   micro1  [{"x-match","all"}]
+direct_exchange exchange        micro_two_direct        queue   micro1  [{"x-match","all"}]
+direct_exchange exchange        micro_two_direct        queue   micro2  [{"x-match","all"}]
+fanout_exchange exchange        micro_one_fanout        queue           [{"x-match","all"}]
+fanout_exchange exchange        micro_two_fanout        queue           [{"x-match","all"}]
+headers_exchange        exchange        micro_one_header        queue           [{"topic","format"},{"type","pdf"},{"x-match","all"}]
+headers_exchange        exchange        micro_two_header        queue           [{"topic","format"},{"type","pdf"},{"x-match","all"}]
+topic_exchange  exchange        micro_one_topic queue   micro.* [{"x-match","all"}]
+topic_exchange  exchange        micro_two_topic queue   micro.* [{"x-match","all"}]
