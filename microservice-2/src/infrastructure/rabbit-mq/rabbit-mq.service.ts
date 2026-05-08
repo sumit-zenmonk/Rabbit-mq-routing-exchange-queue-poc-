@@ -1,8 +1,8 @@
 import { Injectable, OnModuleInit, OnModuleDestroy, Logger } from "@nestjs/common";
 import * as amqp from "amqplib";
 import { Channel, Connection } from "amqplib";
-import { ExchangeTypeEnum, XMatchHeaderEnum } from "src/domain/rabbit-mq/enum/rabbit-mq.enum";
-import { ExchangeType, PublishHeadersInterface } from "src/domain/rabbit-mq/type/rabbit-mq.type";
+import { ExchangeTypeEnum, XMatchHeaderEnum } from "src/infrastructure/rabbit-mq/enum/rabbit-mq.enum";
+import { ExchangeType, PublishHeadersInterface } from "src/infrastructure/rabbit-mq/type/rabbit-mq.type";
 
 @Injectable()
 export class Micro2RabbitMQService implements OnModuleInit, OnModuleDestroy {

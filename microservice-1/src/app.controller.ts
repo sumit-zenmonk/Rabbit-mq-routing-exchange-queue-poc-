@@ -2,7 +2,7 @@ import { BadRequestException, Body, Controller, Get, Post, Req } from '@nestjs/c
 import { AppService } from './app.service';
 import { Micro1RabbitMQService } from './infrastructure/rabbit-mq/rabbit-mq.service';
 import type { Request } from 'express';
-import { ExchangeTypeEnum, XMatchHeaderEnum } from './domain/rabbit-mq/enum/rabbit-mq.enum';
+import { XMatchHeaderEnum } from './infrastructure/rabbit-mq/enum/rabbit-mq.enum';
 
 @Controller()
 export class AppController {
